@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store
+
+# Local outputs
+cleaned_*.bib
+dedup_merged.bib
+rebib_report.jsonl
+dedup_report.jsonl
+dedup_keymap.json
+
+# Local cache
+.cache/

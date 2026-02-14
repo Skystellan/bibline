@@ -32,6 +32,55 @@ uv run python dedup_bib.py alice.bib bob.bib charlie.bib \
   --keymap dedup_keymap.json
 ```
 
+## Optional: Set Zsh Shortcuts
+
+If you use `zsh`, add shortcuts so you can run commands from anywhere.
+
+### Option A: Two aliases
+
+Add to `~/.zshrc`:
+
+```zsh
+alias rebiber='uv run --project /absolute/path/to/bibline python /absolute/path/to/bibline/rebib.py'
+alias rebibdedup='uv run --project /absolute/path/to/bibline python /absolute/path/to/bibline/dedup_bib.py'
+```
+
+Example with this repo path:
+
+```zsh
+alias rebiber='uv run --project /Users/skystellan/ResearchTools/Rebiber python /Users/skystellan/ResearchTools/Rebiber/rebib.py'
+alias rebibdedup='uv run --project /Users/skystellan/ResearchTools/Rebiber python /Users/skystellan/ResearchTools/Rebiber/dedup_bib.py'
+```
+
+### Option B: Single command (`rebiber`)
+
+Add to `~/.zshrc`:
+
+```zsh
+rebiber() {
+  local proj="/absolute/path/to/bibline"
+  if [[ "$1" == "dedup" ]]; then
+    shift
+    uv run --project "$proj" python "$proj/dedup_bib.py" "$@"
+  else
+    uv run --project "$proj" python "$proj/rebib.py" "$@"
+  fi
+}
+```
+
+Then reload shell config:
+
+```bash
+source ~/.zshrc
+```
+
+Usage:
+
+```bash
+rebiber refs1.bib refs2.bib -o cleaned
+rebiber dedup alice.bib bob.bib -o dedup_merged.bib
+```
+
 ## What `rebib.py` Does
 
 - Resolution priority: DOI -> arXiv DOI upgrade -> DBLP -> Crossref/OpenAlex/arXiv fallback.

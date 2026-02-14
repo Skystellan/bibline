@@ -32,6 +32,55 @@ uv run python dedup_bib.py alice.bib bob.bib charlie.bib \
   --keymap dedup_keymap.json
 ```
 
+## 可选：配置 Zsh 快捷命令
+
+如果你使用 `zsh`，可以把命令写进 `~/.zshrc`，之后在任意目录直接运行。
+
+### 方案 A：两个 alias
+
+把下面内容加入 `~/.zshrc`：
+
+```zsh
+alias rebiber='uv run --project /absolute/path/to/bibline python /absolute/path/to/bibline/rebib.py'
+alias rebibdedup='uv run --project /absolute/path/to/bibline python /absolute/path/to/bibline/dedup_bib.py'
+```
+
+按本仓库路径的示例：
+
+```zsh
+alias rebiber='uv run --project /Users/skystellan/ResearchTools/Rebiber python /Users/skystellan/ResearchTools/Rebiber/rebib.py'
+alias rebibdedup='uv run --project /Users/skystellan/ResearchTools/Rebiber python /Users/skystellan/ResearchTools/Rebiber/dedup_bib.py'
+```
+
+### 方案 B：统一成一个命令 `rebiber`
+
+把下面函数加入 `~/.zshrc`：
+
+```zsh
+rebiber() {
+  local proj="/absolute/path/to/bibline"
+  if [[ "$1" == "dedup" ]]; then
+    shift
+    uv run --project "$proj" python "$proj/dedup_bib.py" "$@"
+  else
+    uv run --project "$proj" python "$proj/rebib.py" "$@"
+  fi
+}
+```
+
+然后执行：
+
+```bash
+source ~/.zshrc
+```
+
+使用示例：
+
+```bash
+rebiber refs1.bib refs2.bib -o cleaned
+rebiber dedup alice.bib bob.bib -o dedup_merged.bib
+```
+
 ## `rebib.py` 功能
 
 - 解析优先级：DOI -> arXiv DOI 升级 -> DBLP -> Crossref/OpenAlex/arXiv 回退。

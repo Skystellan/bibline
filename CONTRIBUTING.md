@@ -7,9 +7,7 @@ This project focuses on BibTeX cleaning and deduplication for CS paper writing w
 ## Development Setup
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync
 ```
 
 ## Basic Checks
@@ -17,7 +15,7 @@ pip install -r requirements.txt
 Run syntax checks before committing:
 
 ```bash
-PYTHONPYCACHEPREFIX=/tmp/pycache python3 -m py_compile rebib.py dedup_bib.py
+uv run python -m py_compile rebib.py dedup_bib.py
 ```
 
 ## Change Guidelines

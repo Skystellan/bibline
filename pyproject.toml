@@ -1,0 +1,13 @@
+[project]
+name = "bibline"
+version = "0.1.0"
+description = "Identifier-first BibTeX cleaning and collaborator dedup toolkit for CS writing"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "bibtexparser>=1.4.3",
+    "requests>=2.32.5",
+]
+
+[tool.uv]
+package = false
